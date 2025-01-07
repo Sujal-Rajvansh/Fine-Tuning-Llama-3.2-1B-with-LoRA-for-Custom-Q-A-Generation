@@ -2,30 +2,26 @@
 
 This project demonstrates fine-tuning **Meta's Llama-3.2-1B model** using **LoRA (Low-Rank Adaptation)** for efficient and lightweight customization. The resulting model can be used for **custom question-answering generation** or other text-based tasks. The fine-tuning process is resource-efficient, leveraging LoRA for scalable parameter updates without requiring full model re-training.
 
----
-
 ## 🌟 Key Features
 
-- **Efficient Fine-Tuning with LoRA**: Minimal hardware requirements for effective customization.
-- **Custom Q&A Dataset**: Fine-tune the model to generate domain-specific answers.
-- **Easy Integration**: Compatible with Hugging Face's `transformers` and `pipeline` for text generation.
+- **Efficient Fine-Tuning with LoRA**: Minimal hardware requirements for effective customization.  
+- **Custom Q&A Dataset**: Fine-tune the model to generate domain-specific answers.  
+- **Easy Integration**: Compatible with Hugging Face's `transformers` and `pipeline` for text generation.  
 - **Google Drive Integration**: Save and load fine-tuned models for reuse and sharing.
-
----
 
 ## 🛠️ Installation
 
-1. Install the necessary libraries:
-   ```bash
-   pip install --upgrade transformers torch bitsandbytes peft
+Install the necessary libraries:
+```bash
+pip install --upgrade transformers torch bitsandbytes peft
 Log in to Hugging Face:
+
 python
 Copy code
 from huggingface_hub import login
 login("your_huggingface_token")
 🚀 Fine-Tuning Process
 1️⃣ Load the Pre-Trained Model
-Load the Llama-3.2-1B model and tokenizer:
 
 python
 Copy code
@@ -35,7 +31,6 @@ model_id = "meta-llama/Llama-3.2-1B"
 tokenizer = AutoTokenizer.from_pretrained(model_id)
 model = AutoModelForCausalLM.from_pretrained(model_id, torch_dtype=torch.float16, device_map="auto")
 2️⃣ Apply LoRA for Efficient Fine-Tuning
-Configure and apply LoRA for lightweight parameter updates:
 
 python
 Copy code
@@ -49,7 +44,6 @@ lora_config = LoraConfig(
 )
 model = get_peft_model(model, lora_config)
 3️⃣ Prepare the Dataset
-Define a custom Q&A dataset and tokenize it:
 
 python
 Copy code
@@ -80,7 +74,6 @@ class QADataset(Dataset):
 
 train_dataset = QADataset(train_texts, tokenizer)
 4️⃣ Train the Model
-Define training arguments and train the model:
 
 python
 Copy code
@@ -102,7 +95,6 @@ trainer = Trainer(
 
 trainer.train()
 5️⃣ Save the Fine-Tuned Model
-Save the model and tokenizer to Google Drive:
 
 python
 Copy code
@@ -110,6 +102,7 @@ model.save_pretrained("/content/drive/MyDrive/fine_tuned_model")
 tokenizer.save_pretrained("/content/drive/MyDrive/fine_tuned_model")
 🧠 Using the Fine-Tuned Model
 Load the Fine-Tuned Model
+
 python
 Copy code
 from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline
@@ -120,6 +113,7 @@ tokenizer = AutoTokenizer.from_pretrained(model_path)
 
 generator = pipeline("text-generation", model=model, tokenizer=tokenizer)
 Generate Text
+
 python
 Copy code
 prompt = "The key to life is"
@@ -148,3 +142,4 @@ tokenizer = AutoTokenizer.from_pretrained("/content/drive/MyDrive/fine_tuned_mod
 🎯 Customization Options
 Expand Dataset: Add more questions and answers to improve the model's responses.
 Adjust Training Arguments: Modify num_train_epochs, learning_rate, or batch_size for better performance.
+Target Specific Layers: Use LoRA on specific layers for fine-tuned optimization.
