@@ -24,6 +24,8 @@ Copy code
 from huggingface_hub import login
 login("your_huggingface_token")
 🚀 Fine-Tuning Process
+
+
 1️⃣ Load the Pre-Trained Model
 Load the Llama-3.2-1B model and tokenizer:
 
@@ -34,6 +36,8 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 model_id = "meta-llama/Llama-3.2-1B"
 tokenizer = AutoTokenizer.from_pretrained(model_id)
 model = AutoModelForCausalLM.from_pretrained(model_id, torch_dtype=torch.float16, device_map="auto")
+
+
 2️⃣ Apply LoRA for Efficient Fine-Tuning
 Configure and apply LoRA for lightweight parameter updates:
 
@@ -48,6 +52,8 @@ lora_config = LoraConfig(
     lora_dropout=0.1
 )
 model = get_peft_model(model, lora_config)
+
+
 3️⃣ Prepare the Dataset
 Define a custom Q&A dataset and tokenize it:
 
@@ -61,6 +67,7 @@ if tokenizer.pad_token is None:
 
 train_encodings = tokenizer(train_texts, truncation=True, padding=True, return_tensors="pt")
 Create a PyTorch dataset:
+
 
 python
 Copy code
@@ -79,6 +86,8 @@ class QADataset(Dataset):
         return len(self.encodings["input_ids"])
 
 train_dataset = QADataset(train_texts, tokenizer)
+
+
 4️⃣ Train the Model
 Define training arguments and train the model:
 
@@ -101,6 +110,8 @@ trainer = Trainer(
 )
 
 trainer.train()
+
+
 5️⃣ Save the Fine-Tuned Model
 Save the model and tokenizer to Google Drive:
 
