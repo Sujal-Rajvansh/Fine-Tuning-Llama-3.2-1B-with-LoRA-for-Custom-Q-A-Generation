@@ -1,6 +1,6 @@
 # 🦙 Fine-Tuning Llama-3.2-1B with LoRA for Custom Q&A Generation 🚀
 
-This project demonstrates **fine-tuning Meta's Llama-3.2-1B model** using **LoRA (Low-Rank Adaptation)** for efficient and lightweight customization. The resulting model can be used for **custom question-answering generation** or other text-based tasks. The fine-tuning process is resource-efficient, leveraging **LoRA** for scalable parameter updates without requiring full model re-training.
+This project demonstrates fine-tuning **Meta's Llama-3.2-1B model** using **LoRA (Low-Rank Adaptation)** for efficient and lightweight customization. The resulting model can be used for **custom question-answering generation** or other text-based tasks. The fine-tuning process is resource-efficient, leveraging LoRA for scalable parameter updates without requiring full model re-training.
 
 ---
 
@@ -126,14 +126,12 @@ prompt = "The key to life is"
 generated_text = generator(prompt, max_length=50)
 print(generated_text)
 📚 Example Interaction
-vbnet
-Copy code
 Input: What is AI?
 Output: AI is the simulation of human intelligence in machines.
-vbnet
-Copy code
+
 Prompt: The key to life is
 Generated: The key to life is to be true to yourself. If you are true to yourself, you will understand yourself better.
+
 📦 Model Storage and Reuse
 Save the fine-tuned model to Google Drive:
 
@@ -150,4 +148,3 @@ tokenizer = AutoTokenizer.from_pretrained("/content/drive/MyDrive/fine_tuned_mod
 🎯 Customization Options
 Expand Dataset: Add more questions and answers to improve the model's responses.
 Adjust Training Arguments: Modify num_train_epochs, learning_rate, or batch_size for better performance.
-Target Specific Layers: Use LoRA on specific layers for fine-tuned optimization.
