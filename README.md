@@ -119,6 +119,8 @@ python
 Copy code
 model.save_pretrained("/content/drive/MyDrive/fine_tuned_model")
 tokenizer.save_pretrained("/content/drive/MyDrive/fine_tuned_model")
+
+
 🧠 Using the Fine-Tuned Model
 Load the Fine-Tuned Model
 python
@@ -136,6 +138,8 @@ Copy code
 prompt = "The key to life is"
 generated_text = generator(prompt, max_length=50)
 print(generated_text)
+
+
 📚 Example Interaction
 vbnet
 Copy code
@@ -145,6 +149,8 @@ vbnet
 Copy code
 Prompt: The key to life is
 Generated: The key to life is to be true to yourself. If you are true to yourself, you will understand yourself better.
+
+
 📦 Model Storage and Reuse
 Save the fine-tuned model to Google Drive:
 
@@ -158,6 +164,8 @@ python
 Copy code
 model = AutoModelForCausalLM.from_pretrained("/content/drive/MyDrive/fine_tuned_model")
 tokenizer = AutoTokenizer.from_pretrained("/content/drive/MyDrive/fine_tuned_model")
+
+
 🎯 Customization Options
 Expand Dataset: Add more questions and answers to improve the model's responses.
 Adjust Training Arguments: Modify num_train_epochs, learning_rate, or batch_size for better performance.
