@@ -24,8 +24,6 @@ Copy code
 from huggingface_hub import login
 login("your_huggingface_token")
 🚀 Fine-Tuning Process
-
-
 1️⃣ Load the Pre-Trained Model
 Load the Llama-3.2-1B model and tokenizer:
 
@@ -36,8 +34,6 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 model_id = "meta-llama/Llama-3.2-1B"
 tokenizer = AutoTokenizer.from_pretrained(model_id)
 model = AutoModelForCausalLM.from_pretrained(model_id, torch_dtype=torch.float16, device_map="auto")
-
-
 2️⃣ Apply LoRA for Efficient Fine-Tuning
 Configure and apply LoRA for lightweight parameter updates:
 
@@ -52,8 +48,6 @@ lora_config = LoraConfig(
     lora_dropout=0.1
 )
 model = get_peft_model(model, lora_config)
-
-
 3️⃣ Prepare the Dataset
 Define a custom Q&A dataset and tokenize it:
 
@@ -67,7 +61,6 @@ if tokenizer.pad_token is None:
 
 train_encodings = tokenizer(train_texts, truncation=True, padding=True, return_tensors="pt")
 Create a PyTorch dataset:
-
 
 python
 Copy code
@@ -86,8 +79,6 @@ class QADataset(Dataset):
         return len(self.encodings["input_ids"])
 
 train_dataset = QADataset(train_texts, tokenizer)
-
-
 4️⃣ Train the Model
 Define training arguments and train the model:
 
@@ -110,8 +101,6 @@ trainer = Trainer(
 )
 
 trainer.train()
-
-
 5️⃣ Save the Fine-Tuned Model
 Save the model and tokenizer to Google Drive:
 
@@ -119,8 +108,6 @@ python
 Copy code
 model.save_pretrained("/content/drive/MyDrive/fine_tuned_model")
 tokenizer.save_pretrained("/content/drive/MyDrive/fine_tuned_model")
-
-
 🧠 Using the Fine-Tuned Model
 Load the Fine-Tuned Model
 python
@@ -138,8 +125,6 @@ Copy code
 prompt = "The key to life is"
 generated_text = generator(prompt, max_length=50)
 print(generated_text)
-
-
 📚 Example Interaction
 vbnet
 Copy code
@@ -149,8 +134,6 @@ vbnet
 Copy code
 Prompt: The key to life is
 Generated: The key to life is to be true to yourself. If you are true to yourself, you will understand yourself better.
-
-
 📦 Model Storage and Reuse
 Save the fine-tuned model to Google Drive:
 
@@ -164,8 +147,6 @@ python
 Copy code
 model = AutoModelForCausalLM.from_pretrained("/content/drive/MyDrive/fine_tuned_model")
 tokenizer = AutoTokenizer.from_pretrained("/content/drive/MyDrive/fine_tuned_model")
-
-
 🎯 Customization Options
 Expand Dataset: Add more questions and answers to improve the model's responses.
 Adjust Training Arguments: Modify num_train_epochs, learning_rate, or batch_size for better performance.
